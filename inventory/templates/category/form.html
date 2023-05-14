@@ -1,4 +1,4 @@
-<div class="modal fade" id="formCategoryModal{{ user.id if user else 0 }}" data-bs-backdrop="static" data-bs-keyboard="false" 
+<div class="modal fade" id="formCategoryModal{{ category.id if category else 0 }}" data-bs-backdrop="static" data-bs-keyboard="false" 
     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md">
       <div class="modal-content">
@@ -7,32 +7,36 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div class="row">
+          <form class="row" action="{{ url_for('categories.index') }}" id="form-category-{{ category.id if category else 0 }}" method="POST">
+            {{ form.csrf_token }}
+            {% if category %}
+            <input type="hidden" name="id" value="{{ category.id }}">
+            {% endif %}
             <div class="col-12 p-1">
                 <label for="form-name{{ category.id if category else 0 }}">Name:</label>
-                <input type="text" name="name" 
-                    id="form-name{{ category.id if category else 0 }}" 
+                <input type="text" name="name" value="{{ category.name or '' if category else form.name.data or '' }}"
+                    id="form-name{{ category.id if category else 0 }}" required
                     class="form-control form-control-sm">
             </div>
             <div class="col-12 p-1">
                 <label for="form-description{{ category.id if category else 0 }}">Description:</label>
-                <input type="text" name="description" 
-                    id="form-description{{ category.id if category else 0 }}" 
+                <input type="text" name="description" value="{{ category.description or '' if category else form.description.data or '' }}"
+                    id="form-description{{ category.id if category else 0 }}" required
                     class="form-control form-control-sm">
             </div>
             <div class="col-12 p-1">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="form-active{{ category.id if category else 0 }}">
+                    <input class="form-check-input" type="checkbox" {{ 'checked' if not category or category.active else '' }} value="{{ True }}" id="form-active{{ category.id if category else 0 }}">
                     <label class="form-check-label" for="form-active{{ category.id if category else 0 }}">
                       Active
                     </label>
                   </div>
             </div>
-          </div>
+          </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-sm btn-primary">Save</button>
+          <button type="submit" form="form-category-{{ category.id if category else 0 }}" class="btn btn-sm btn-primary">Save</button>
         </div>
       </div>
     </div>

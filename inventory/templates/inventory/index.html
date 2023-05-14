@@ -8,10 +8,8 @@
                 <h2 class="h4">{{ title }}</h2>
             </div>
             <div class="col text-end">
-                <button type="button" data-bs-toggle="modal" data-bs-target="#formInventoryModal0"
-                    class="btn btn-sm btn-info small text-white">Add Inventory</button>
+                <a href="{{ url_for('inventory.form') }}" class="btn btn-sm btn-info small text-white">Add Inventory</a>
             </div>
-            {% include 'inventory/form.html' %}
         </div>
     </div>
     <div class="card-body">

@@ -29,14 +29,24 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% for category in categories %}
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ loop.index + 1 }}</td>
+                            <td>{{ category.name }}</td>
+                            <td>{{ category.description or '-' }}</td>
+                            <td>{{ 'Active' if category.active else '-'}}</td>
+                            <td>{{ category.created_at }}</td>
+                            <td>
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#formCategoryModal{{ category.id }}"
+                                class="btn btn-sm btn-info small text-white">Edit</button>
+                                {% include 'category/form.html' %}
+                            </td>
                         </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="6" class="text-center">No categories</td>
+                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>

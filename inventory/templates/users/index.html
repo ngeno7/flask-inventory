@@ -1,6 +1,15 @@
 {% extends "layout.html" %}
 
 {% block main %}
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+       {% for message in messages %}
+        <div class="alert alert-primary" role="alert">
+           {{ message }}
+        </div>
+       {% endfor %}
+   {% endif %}
+{% endwith %}
 <div class="card mt-4">
     <div class="card-header">
         <div class="row">
