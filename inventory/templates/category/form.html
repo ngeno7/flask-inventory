@@ -1,0 +1,39 @@
+<div class="modal fade" id="formCategoryModal{{ user.id if user else 0 }}" data-bs-backdrop="static" data-bs-keyboard="false" 
+    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">{{ 'Edit' if category else 'Add'}} Category</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-12 p-1">
+                <label for="form-name{{ category.id if category else 0 }}">Name:</label>
+                <input type="text" name="name" 
+                    id="form-name{{ category.id if category else 0 }}" 
+                    class="form-control form-control-sm">
+            </div>
+            <div class="col-12 p-1">
+                <label for="form-description{{ category.id if category else 0 }}">Description:</label>
+                <input type="text" name="description" 
+                    id="form-description{{ category.id if category else 0 }}" 
+                    class="form-control form-control-sm">
+            </div>
+            <div class="col-12 p-1">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="form-active{{ category.id if category else 0 }}">
+                    <label class="form-check-label" for="form-active{{ category.id if category else 0 }}">
+                      Active
+                    </label>
+                  </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-sm btn-primary">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>

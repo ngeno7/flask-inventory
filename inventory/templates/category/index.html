@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<div class="card mt-4">
+    <div class="card-header">
+        <div class="row">
+            <div class="col">
+                <h2 class="h4">{{ title }}</h2>
+            </div>
+            <div class="col text-end">
+                <button type="button" data-bs-toggle="modal" data-bs-target="#formCategoryModal0"
+                    class="btn btn-sm btn-info small text-white">Add Category</button>
+            </div>
+            {% include 'category/form.html' %}
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12 table-responsive">
+                <table class="table border">
+                    <thead class="bg-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Active</th>
+                            <th>Created At</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<div class="card mt-4">
+    <div class="card-header">
+        <div class="row">
+            <div class="col">
+                <h2 class="h4">{{ title }}</h2>
+            </div>
+            <div class="col text-end">
+                <button type="button" data-bs-toggle="modal" data-bs-target="#formUserModal0"
+                    class="btn btn-sm btn-info small text-white">Add User</button>
+            </div>
+            {% include 'users/form.html' %}
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12 table-responsive">
+                <table class="table border">
+                    <thead class="bg-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Active</th>
+                            <th>Reg On</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ loop.index+1 }}</td>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ 'Active' if user.active else '-' }}</td>
+                            <td>{{ user.created_at or '-' }}</td>
+                            <td>
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#formUserModal{{ user.id }}"
+                                    class="btn btn-sm btn-info small text-white">Edit</button>
+                                {% include 'users/form.html' %}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="6" class="text-center">No users</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
