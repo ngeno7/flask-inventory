@@ -6,6 +6,7 @@ class Inventory(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
+    description = db.Column(db.String, nullable=True)
     qty = db.Column(db.Numeric(12,2), nullable=True, default=0)
     min_level = db.Column(db.Numeric(12,2), nullable=True, default=0)
     reorder_level = db.Column(db.Numeric(12,2), nullable=True, default=0)
@@ -13,3 +14,4 @@ class Inventory(db.Model):
     created_at = db.Column(db.DateTime(timezone=True), default=datetime.datetime.utcnow)
 
     #relationship
+    category = db.relationship("Category", backref="categories")

@@ -1,10 +1,7 @@
 <div class="position-sticky pt-3 sidebar-sticky">
     <ul class="nav flex-column">
         <li class="nav-item">
-            <a class="nav-link {{ 'active' if url_for(request.endpoint) == url_for("home.index") else '' }}"
-                {% if url_for(request.endpoint) == url_for('home.index') %}
-                aria-current="page"
-                {% endif %} 
+            <a class="nav-link"
                 href="{{ url_for("home.index") }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -17,10 +14,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{ 'active' if url_for(request.endpoint) == url_for('categories.index') else '' }}" 
-                {% if url_for(request.endpoint) == url_for('categories.index') %}
-                aria-current="page"
-                {% endif %}
+            <a class="nav-link" 
                 href="{{ url_for('categories.index') }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -33,10 +27,8 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{ 'active' if url_for(request.endpoint) == url_for('inventory.index') else '' }}"  href="{{ url_for('inventory.index') }}"
-                {% if url_for(request.endpoint) == url_for('inventory.index') %}
-                    aria-current="page"
-                {% endif %}>
+            <a class="nav-link"  href="{{ url_for('inventory.index') }}">
+
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="feather feather-layers align-text-bottom" aria-hidden="true">
@@ -143,7 +135,7 @@
     </h6>
     <ul class="nav flex-column mb-2">
         <li class="nav-item">
-            <a class="nav-link {{ 'active' if url_for(request.endpoint) == url_for('users.index') else '' }}" 
+            <a class="nav-link " 
                 href="{{ url_for('users.index') }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"

@@ -21,22 +21,32 @@
                             <th>#</th>
                             <th>Name</th>
                             <th>Category</th>
+                            <th>Qty</th>
                             <th>Reorder Level</th>
                             <th>Min Level</th>
-                            <th>Active</th>
                             <th>Created On</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
+                        {% for inventoryItem in inventory %}
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ loop.index+1 }}</td>
+                            <td>{{ inventoryItem.name }}</td>
+                            <td>{{ inventoryItem.category.name }}</td>
+                            <td>{{ inventoryItem.qty }}</td>
+                            <td>{{ inventoryItem.reorder_level }}</td>
+                            <td>{{ inventoryItem.min_level }}</td>
+                            <td>{{ inventoryItem.created_at }}</td>
+                            <td>
+                                <a href="{{ url_for('inventory.edit', id=inventoryItem.id) }}" class="btn btn-sm btn-primary">Edit</a>
+                            </td>
                         </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="6" class="text-center">No Inventory</td>
+                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
