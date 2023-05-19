@@ -15,3 +15,14 @@ class Inventory(db.Model):
 
     #relationship
     category = db.relationship("Category", backref="categories")
+    stocks = db.relationship('InventoryStock', backref="inventory_stocks")
+
+class InventoryStock(db.Model):
+    __tablename__ = 'inventory_stocks'
+
+    id = db.Column(db.Integer, primary_key=True)
+    inventory_id = db.Column(db.Integer, db.ForeignKey('inventory.id'), nullable=False)
+    store_id = db.Column(db.Integer, db.ForeignKey('stores.id'), nullable=False)
+    qty = db.Column(db.Numeric(12,2), default=0, nullable=True)
+    updated_at = db.Column(db.DateTime(timezone=True), default=datetime.datetime.utcnow, nullable=True)
+    created_at = db.Column(db.DateTime(timezone=True), default=datetime.datetime.utcnow)

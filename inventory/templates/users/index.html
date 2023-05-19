@@ -1,15 +1,7 @@
 {% extends "layout.html" %}
 
 {% block main %}
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
-       {% for message in messages %}
-        <div class="alert alert-primary" role="alert">
-           {{ message }}
-        </div>
-       {% endfor %}
-   {% endif %}
-{% endwith %}
+
 <div class="card mt-4">
     <div class="card-header">
         <div class="row">
@@ -40,11 +32,11 @@
                     <tbody>
                         {% for user in users %}
                         <tr>
-                            <td>{{ loop.index+1 }}</td>
+                            <td>{{ loop.index }}</td>
                             <td>{{ user.name }}</td>
                             <td>{{ user.username }}</td>
                             <td>{{ 'Active' if user.active else '-' }}</td>
-                            <td>{{ user.created_at or '-' }}</td>
+                            <td>{{ user.created_at|format_date }}</td>
                             <td>
                                 <button type="button" data-bs-toggle="modal" data-bs-target="#formUserModal{{ user.id }}"
                                     class="btn btn-sm btn-info small text-white">Edit</button>

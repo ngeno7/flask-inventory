@@ -31,13 +31,13 @@
                     <tbody>
                         {% for inventoryItem in inventory %}
                         <tr>
-                            <td>{{ loop.index+1 }}</td>
+                            <td>{{ loop.index }}</td>
                             <td>{{ inventoryItem.name }}</td>
                             <td>{{ inventoryItem.category.name }}</td>
-                            <td>{{ inventoryItem.qty }}</td>
+                            <td>{{ inventoryItem.stocks|get_qty }}</td>
                             <td>{{ inventoryItem.reorder_level }}</td>
                             <td>{{ inventoryItem.min_level }}</td>
-                            <td>{{ inventoryItem.created_at }}</td>
+                            <td>{{ inventoryItem.created_at|format_date }}</td>
                             <td>
                                 <a href="{{ url_for('inventory.edit', id=inventoryItem.id) }}" class="btn btn-sm btn-primary">Edit</a>
                             </td>

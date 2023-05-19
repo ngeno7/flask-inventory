@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<div class="card mt-4">
+    <div class="card-header">
+        <div class="row">
+            <div class="col">
+                <h2 class="h4">{{ title }}</h2>
+            </div>
+            <div class="col text-end">
+                <a href="{{ url_for('stocktakes.form') }}" class="btn btn-sm btn-info small text-white">New Stock take</a>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12 table-responsive">
+                <table class="table border">
+                    <thead class="bg-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Date</th>
+                            <th>Store</th>
+                            <th>Status</th>
+                            <th>Created At</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for stocktake in stocktakeList %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ stocktake.date|format_date }}</td>
+                            <td>{{ stocktake.store.name }}</td>
+                            <td>{{ stocktake.status_name  }}</td>
+                            <td>{{ stocktake.created_at|format_date }}</td>
+                            <td>
+                                <button type="button" 
+                                    data-bs-toggle="modal" data-bs-target="#viewStockTakeModal{{loop.index}}"
+                                    class="btn btn-sm btn-primary">View</button>
+                                {% include 'stock-takes/view.html' %}
+                                {% if stocktake.status == 0 %}
+                                    <button type="button" 
+                                        data-bs-toggle="modal" data-bs-target="#approveStockTakeModal{{loop.index}}"
+                                        class="btn btn-sm btn-primary">Approve</button>
+                                    <button type="button" 
+                                        data-bs-toggle="modal" data-bs-target="#declineStockTakeModal{{loop.index}}"
+                                        class="btn btn-sm btn-primary">Decline</button>
+                                    <button type="button" 
+                                        data-bs-toggle="modal" data-bs-target="#deleteStockTakeModal{{loop.index}}"
+                                        class="btn btn-sm btn-danger">Delete</button>
+                                    {%  include 'stock-takes/approve-decline.html' %}
+                                    {% include 'stock-takes/delete.html' %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="6" class="text-center">No Stock takes</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

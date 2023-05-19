@@ -8,10 +8,8 @@
                 <h2 class="h4">{{ title }}</h2>
             </div>
             <div class="col text-end">
-                <button type="button" data-bs-toggle="modal" data-bs-target="#formCategoryModal0"
-                    class="btn btn-sm btn-info small text-white">Add Category</button>
+                <a href="{{ url_for('stores.form') }}" class="btn btn-sm btn-info small text-white">Add Stores</a>
             </div>
-            {% include 'category/form.html' %}
         </div>
     </div>
     <div class="card-body">
@@ -29,22 +27,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for category in categories %}
+                        {% for store in stores %}
                         <tr>
                             <td>{{ loop.index }}</td>
-                            <td>{{ category.name }}</td>
-                            <td>{{ category.description or '-' }}</td>
-                            <td>{{ 'Active' if category.active else '-'}}</td>
-                            <td>{{ category.created_at|format_date }}</td>
+                            <td>{{ store.name }}</td>
+                            <td>{{ store.description or '-' }}</td>
+                            <td>{{ 'Active' if store.active else '-'}}</td>
+                            <td>{{ store.created_at|format_date }}</td>
                             <td>
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#formCategoryModal{{ category.id }}"
-                                class="btn btn-sm btn-info small text-white">Edit</button>
-                                {% include 'category/form.html' %}
+                                <a href="{{ url_for('stores.edit', id=store.id) }}" 
+                                    class="btn btn-sm btn-info small text-white">Edit</a>
                             </td>
                         </tr>
                         {% else %}
                         <tr>
-                            <td colspan="6" class="text-center">No categories</td>
+                            <td colspan="6" class="text-center">No stores</td>
                         </tr>
                         {% endfor %}
                     </tbody>

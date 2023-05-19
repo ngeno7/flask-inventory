@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<div class="card mt-4">
+    <div class="card-header">
+        <h2 class="h4">{{ title }}</h2>
+    </div>
+    <div class="card-body">
+        <form action="{{ url_for('stocktakes.save') }}" id="form-stock-take" method="POST">
+            <div class="row">
+                <div class="col-md-4 col-sm-12 p-1">
+                    <label for="grid-date">Date:</label>
+                    <input type="date" class="form-control form-control-sm" name="date" id="grid-date">
+                </div>
+                <div class="col-md-4 col-sm-12 p-1">
+                    <label for="grid-store"></label>
+                    <select name="store_id" id="grid-store" class="form-select form-select-sm">
+                        <option value="">Select store</option>
+                        {% for store in stores %}
+                        <option value="{{ store.id }}">{{ store.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-12 p-1">
+                    <h3>Items</h3>
+                </div>
+                <div class="col-12 p-1 table-responsive">
+                    <table class="table border">
+                        <thead class="bg-light">
+                            <tr>
+                                <th>#</th>
+                                <th>Item</th>
+                                <th>Category</th>
+                                <th>Qty</th>
+                                <th>Counted Qty</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for inventoryItem in inventory %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ inventoryItem.name }}</td>
+                                <td>{{ inventoryItem.category.name }}</td>
+                                <td>{{ inventoryItem.qty }}</td>
+                                <td>
+                                    <input type="hidden" name="id[]" value="{{ inventoryItem.id }}">
+                                    <input type="number" name="qty[]" class="form-control form-control-sm text-end" style="width:8rem;">
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="6" class="text-center">No Stock takes</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="card-footer d-flex justify-content-end">
+        <a href="{{ url_for('stocktakes.index') }}" class="btn btn-secondary mx-2">Back </a>
+        <button type="submit" form="form-stock-take" class="btn btn-primary">Save</button>
+    </div>
+</div>
+{% endblock %}
