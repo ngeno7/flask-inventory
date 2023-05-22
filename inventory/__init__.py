@@ -1,7 +1,5 @@
 from flask import Flask
 from flask_migrate import Migrate
-from flask_login import LoginManager
-
 
 from .db import db
 from .home.routes import home
@@ -11,10 +9,9 @@ from .inventory.routes import inventory
 from .stores.routes import stores
 from .stocktakes.routes import stocktakes
 from .auth.routes import login
-from .db import models
+from .db import models, login_manager
 from .users.models import User
 
-login_manager = LoginManager()
 migrate = Migrate()
 #db config to be moved to .env
 DB_USER = "postgres"
@@ -24,9 +21,6 @@ DB_HOST = "localhost"
 app = Flask(__name__)
 
 login_manager.login_view = "login.index"
-@login_manager.user_loader
-def load_user(user_id):
-    return User.get(user_id)
 
 @app.template_filter()
 def format_date(date):

@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, url_for, redirect, flash, request
+from flask_login import login_required
 from ..category.models import Category
 from .form import InventoryForm
 from .models import Inventory
@@ -7,6 +8,7 @@ from ..db import db
 inventory = Blueprint('inventory', __name__, url_prefix='/inventory')
 
 @inventory.route('', methods=['GET'])
+@login_required
 def index():
     inventory = Inventory.query.all()
     return render_template("inventory/index.html", title="Inventory", inventory=inventory)
@@ -19,6 +21,7 @@ def form():
     return render_template("inventory/form.html", title='Inventory', form=form, categories=categories)
 
 @inventory.route('/form/<id>', methods=['GET', 'POST'])
+@login_required
 def edit(id):
     inventory = Inventory.query.filter_by(id=id).first_or_404()
     form= InventoryForm()

@@ -91,9 +91,9 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="navbar-nav">
-            <div class="nav-item text-nowrap">
-                <a class="nav-link px-3" href="#">Sign out</a>
-            </div>
+            <form class="nav-item text-nowrap" action="{{ url_for('login.logout')}}" method="POST">
+                <button type="submit" class="nav-link px-3">Sign out</button>
+            </form>
         </div>
     </header>
     <div class="container-fluid">

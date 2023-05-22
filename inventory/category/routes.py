@@ -1,10 +1,12 @@
 from flask import Blueprint, render_template, request
+from flask_login import login_required
 from .form import CategoryForm
 from .models import Category
 categories = Blueprint('categories', __name__, url_prefix='/categories')
 from ..db import db
 
 @categories.route('', methods=['GET', 'POST'])
+@login_required
 def index():
     form = CategoryForm()
     category = Category()

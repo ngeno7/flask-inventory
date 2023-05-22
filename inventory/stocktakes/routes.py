@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask_login import login_required
 from ..inventory.models import Inventory, InventoryStock
 from ..stores.models import Store
 from .models import Stocktake, StocktakeItem
@@ -7,11 +8,13 @@ from ..db import db
 stocktakes = Blueprint('stocktakes', __name__, url_prefix='/stock-takes')
 
 @stocktakes.route('', methods=['GET'])
+@login_required
 def index():
     stocktakeList = Stocktake.query.all()
     return render_template('stock-takes/index.html', title="Stock take", stocktakeList=stocktakeList)
 
 @stocktakes.route('/form', methods=['GET'])
+@login_required
 def form():
     inventory = Inventory.query.all()
     stores = Store.query.all()
@@ -19,6 +22,7 @@ def form():
     return render_template('stock-takes/form.html', title="Stock Take", inventory=inventory, stores=stores)
 
 @stocktakes.route('/save', methods=['POST'])
+@login_required
 def save():
     stocktake = Stocktake()
     stocktake.date = datetime.datetime.strptime(request.form.get('date'), "%Y-%m-%d").strftime("%Y-%m-%d")
@@ -42,6 +46,7 @@ def save():
     return redirect(url_for('stocktakes.index'))
 
 @stocktakes.route('/approve', methods=['POST'])
+@login_required
 def approve():
     stocktake = Stocktake.query.filter_by(id=request.form.get('stock_take_id')).first_or_404()
     for item in stocktake.items:
@@ -65,6 +70,7 @@ def approve():
     return redirect(url_for('stocktakes.index'))   
 
 @stocktakes.route('/decline', methods=['POST'])
+@login_required
 def decline():
     stocktake = Stocktake.query.filter_by(id=request.form.get('stock_take_id')).first_or_404()
     stocktake.status = 2
@@ -75,6 +81,7 @@ def decline():
     return redirect(url_for('stocktakes.index'))
  
 @stocktakes.route('/delete', methods=['POST'])
+@login_required
 def delete():
     stocktake = Stocktake.query.filter_by(id=request.form.get('stock_take_id')).first_or_404()
 

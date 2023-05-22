@@ -1,20 +1,24 @@
 from flask import Blueprint, render_template, flash, url_for, redirect
+from flask_login import login_required
 from .form import StoreForm
 from .models import Store
 from ..db import db
 stores = Blueprint('stores', __name__, url_prefix='/stores')
 
 @stores.route('', methods=['POST', 'GET'])
+@login_required
 def index():
     stores = Store.query.all()
     return render_template('stores/index.html', title="Stores", stores=stores)
 
 @stores.route('/form', methods=[ 'GET' ])
+@login_required
 def form():
     form = StoreForm()
     return render_template('stores/form.html', title="Stores", form=form)
 
 @stores.route('/form/<id>', methods=[ 'GET' ])
+@login_required
 def edit(id):
     form = StoreForm()
     store = Store.query.filter_by(id=id).first_or_404()
@@ -26,6 +30,7 @@ def edit(id):
     return render_template('stores/form.html', title="Stores", form=form)
 
 @stores.route('/save', methods=[ 'POST' ])
+@login_required
 def save():
     store = Store()
     form = StoreForm()

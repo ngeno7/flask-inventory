@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, flash, url_for
+from flask_login import login_required
 from .form import UserForm
 from .models import User
 from ..db import db
@@ -7,6 +8,7 @@ from passlib.hash import pbkdf2_sha256
 users = Blueprint('users', __name__, url_prefix='/users')
 
 @users.route('', methods=['GET', 'POST'])
+
 def index():
     userform = UserForm()
     user = User()
@@ -16,7 +18,7 @@ def index():
         user.name = userform.name.data
         user.email = userform.username.data
         user.username = userform.username.data
-        user.password = pbkdf2_sha256.hash(userform.password.data)
+        user.password = pbkdf2_sha256.encrypt(userform.password.data)
         db.session.add(user)
         db.session.commit()
         flash('User saved successfully')
