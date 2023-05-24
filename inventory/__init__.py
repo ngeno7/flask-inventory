@@ -29,6 +29,10 @@ def format_date(date):
         return '-'
     else:
         return date.strftime("%d,  %B %Y")
+@app.template_filter()
+def format_number(number):
+
+    return "{:,}".format(number)
 
 def create_app():
    

@@ -1,0 +1,48 @@
+<div class="modal fade" id="viewInventoryModal{{inventoryItem.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">{{ inventoryItem.name }}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-2">
+                    <div class="col-md-6 col-12 p-2">
+                        <h5>Category</h5>
+                        <h6>{{ inventoryItem.category.name }}</h6>
+                    </div>
+                    <div class="col-md-6 col-12 p-2">
+                        <h5></h5>
+                        <h6></h6>
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead class="bg-light">
+                        <tr>
+                            <th>Store</th>
+                            <th>Qty</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for stock in inventoryItem.stocks %}
+                        <tr>
+                            <td>{{ stock.store.name }}</td>
+                            <td>{{ stock.qty|format_number }}</td>
+                        </tr>
+                        {% endfor %}
+                        
+                    </tbody>
+                    <tfoot class="bg-light">
+                        <tr>
+                            <th>Total</th>
+                            <th>{{ inventoryItem.stocks|get_qty|format_number }}</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

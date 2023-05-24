@@ -34,12 +34,16 @@
                             <td>{{ loop.index }}</td>
                             <td>{{ inventoryItem.name }}</td>
                             <td>{{ inventoryItem.category.name }}</td>
-                            <td>{{ inventoryItem.stocks|get_qty }}</td>
-                            <td>{{ inventoryItem.reorder_level }}</td>
-                            <td>{{ inventoryItem.min_level }}</td>
+                            <td>{{ inventoryItem.stocks|get_qty|format_number }}</td>
+                            <td>{{ inventoryItem.reorder_level|format_number }}</td>
+                            <td>{{ inventoryItem.min_level|format_number }}</td>
                             <td>{{ inventoryItem.created_at|format_date }}</td>
                             <td>
                                 <a href="{{ url_for('inventory.edit', id=inventoryItem.id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                <button 
+                                    data-bs-toggle="modal" data-bs-target="#viewInventoryModal{{inventoryItem.id}}"
+                                    class="btn btn-sm btn-info">View</button>
+                                {% include 'inventory/view.html' %}
                             </td>
                         </tr>
                         {% else %}

@@ -26,3 +26,5 @@ class InventoryStock(db.Model):
     qty = db.Column(db.Numeric(12,2), default=0, nullable=True)
     updated_at = db.Column(db.DateTime(timezone=True), default=datetime.datetime.utcnow, nullable=True)
     created_at = db.Column(db.DateTime(timezone=True), default=datetime.datetime.utcnow)
+    #relationship
+    store = db.relationship('Store', backref="store")

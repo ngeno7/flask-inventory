@@ -15,7 +15,7 @@
       <div class="col-md-6 col-sm-12 p-1">
         <label for="form-name{{ form.name.data if form.name.data else 0 }}">Name:</label>
         <input type="text" name="name" id="form-name{{ form.name.data if form.name.data else 0 }}"
-          value="{{ form.name.data }}" class="form-control form-control-sm">
+          value="{{ form.name.data if form.name.data else '' }}" class="form-control form-control-sm">
         <div class="invalid-feedback">
           {% for error in form.name.errors %}
           <span>{{ error }}</span>
@@ -65,14 +65,6 @@
           {% for error in form.reorder_level.errors %}
           <span>{{ error }}</span>
           {% endfor %}
-        </div>
-      </div>
-      <div class="col-md-4 col-sm-12 p-1">
-        <div class="form-check mt-4">
-          <input class="form-check-input" type="checkbox" value="{{ True }}" id="form-active">
-          <label class="form-check-label" for="form-active">
-            Active
-          </label>
         </div>
       </div>
     </form>
